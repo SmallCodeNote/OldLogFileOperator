@@ -1,0 +1,43 @@
+**Prompt:**
+
+Please develop a Python application named `DiskCapacityKeeper.py` based on the following specifications:
+
+### **Environment & Libraries**
+- **OS**: Windows 11
+- **Python Version**: 3.12.10
+- **GUI Framework**: PySide6
+
+### **Core Functionality**
+The program monitors disk space and automatically cleans up old log files when capacity is low.
+
+#### **Disk Monitoring & Cleanup Logic**
+- **Monitoring**: Check the free capacity of a specific disk (defined in `textBox_WatchDisk`) at a specified interval.
+- **Threshold Trigger**: If the free capacity falls below the minimum threshold (defined in `textBox_MinDiskCapacity`), initiate the cleanup process.
+- **Log Path Expansion & Deletion**: 
+    - The paths to be monitored are listed in `textBoxMultiLine_LogFilePathList`.
+    - These paths contain date placeholders (e.g., `YYYY`, `YYYYMMDD`). The program must expand these based on the current/past dates.
+    - Delete directories and files that match these expanded paths and are older than a specified number of days.
+
+#### **Configuration Management (JSON)**
+- **Save Logic**: When `button_SaveJson` is clicked, open a "Save File" dialog. Save all relevant control values into a JSON file at the user-specified path. The default save path should be `DiskCapacityKeeper.json` in the script's directory.
+- **Load Logic**: On startup, attempt to load configuration from `DiskCapacityKeeper.json`. 
+    - If missing: Use default values and do nothing.
+    - If exists: Initialize controls with JSON data. Skip any controls that lack corresponding keys in the JSON file.
+
+#### **UI Components & Display**
+- `textBoxMultiLine_LogFilePathList`: Input area for log path templates.
+- `button_SaveJson` / `button_LoadJson`: Buttons to persist settings.
+- `button_StartTask`: Starts/Stops the monitoring task.
+- `textBox_WatchDisk`: Specifies which disk to monitor.
+- `textBox_MinDiskCapacity`: Specifies the minimum free capacity threshold.
+- `label_LastDiskCapacity`: Displays the latest status in this format: 
+    `[Check Time] , [Free Capacity / Total Disk Capacity] , [Usage (%)]`
+- `label_LogFilePathListSample`: Provides example path formats for the user.
+
+#### **Data Format (Path Templates)**
+The input in `textBoxMultiLine_LogFilePathList` should follow these patterns:
+- `C:\Log\YYYY\YYYYMMDD`
+- `C:\Log\YYYY\YYYYMMDD.7z`
+- `D:\Log\YYYY\YYYYMM\YYYYMMDD\HH\mm.mp4`
+
+*(Note: The program should intelligently parse the date/time components from these strings to identify target files.)*
