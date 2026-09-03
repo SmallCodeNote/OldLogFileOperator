@@ -1,5 +1,3 @@
-**Prompt:**
-
 Please develop a Python application named `OldLogOperator.py` based on the following specifications:
 
 ### **Environment & Libraries**
